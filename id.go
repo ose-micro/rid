@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-type RId struct {
+type Id struct {
 	block1    string
 	block2    string
 	phase1    []byte
@@ -16,11 +16,11 @@ type RId struct {
 	uppercase bool
 }
 
-func (i RId) Equals(other RId) bool {
+func (i Id) Equals(other Id) bool {
 	return i.String() == other.String()
 }
 
-func (i RId) String() string {
+func (i Id) String() string {
 	value := fmt.Sprintf("%s-%s-%04x-%04x-%012x",
 		i.block1, i.block2, i.phase1, i.phase2, i.phase3)
 
@@ -30,7 +30,7 @@ func (i RId) String() string {
 	return value
 }
 
-func New(prefix string, uppercase bool) *RId {
+func New(prefix string, uppercase bool) *Id {
 	now := time.Now()
 
 	// Block1 = prefix + YYMMDD (trim/pad to 8 chars)
@@ -53,7 +53,7 @@ func New(prefix string, uppercase bool) *RId {
 	phase2 := b[2:4] // 4 hex
 	phase3 := b[4:]  // 12 hex
 
-	return &RId{
+	return &Id{
 		block1:    block1,
 		block2:    timePart,
 		phase1:    phase1,

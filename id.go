@@ -8,8 +8,8 @@ import (
 )
 
 type Id struct {
-	block1    string
-	block2    string
+	date      string
+	time      string
 	phase1    []byte
 	phase2    []byte
 	phase3    []byte
@@ -22,7 +22,7 @@ func (i Id) Equals(other Id) bool {
 
 func (i Id) String() string {
 	value := fmt.Sprintf("%s-%s-%04x-%04x-%012x",
-		i.block1, i.block2, i.phase1, i.phase2, i.phase3)
+		i.date, i.time, i.phase1, i.phase2, i.phase3)
 
 	if i.uppercase {
 		return strings.ToUpper(value)
@@ -54,11 +54,32 @@ func New(prefix string, uppercase bool) *Id {
 	phase3 := b[4:]  // 12 hex
 
 	return &Id{
-		block1:    block1,
-		block2:    timePart,
+		date:      block1,
+		time:      timePart,
 		phase1:    phase1,
 		phase2:    phase2,
 		phase3:    phase3,
+		uppercase: uppercase,
+	}
+}
+
+func Existing(id string) *Id {
+	values := strings.Split(id, "-")
+
+	datePart := values[0]
+	timePart := values[1]
+	phase1 := values[2]
+	phase2 := values[3]
+	phase3 := values[4]
+
+	uppercase := id == strings.ToUpper(id)
+
+	return &Id{
+		date:      datePart,
+		time:      timePart,
+		phase1:    []byte(phase1),
+		phase2:    []byte(phase2),
+		phase3:    []byte(phase3),
 		uppercase: uppercase,
 	}
 }

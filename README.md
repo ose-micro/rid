@@ -33,3 +33,4 @@ func main() {
 
 ```bash
 go get github.com/ose-micro/rid
+```

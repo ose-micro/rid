@@ -21,7 +21,7 @@ func (i Id) Equals(other Id) bool {
 }
 
 func (i Id) String() string {
-	value := fmt.Sprintf("%s-%s-%04x-%04x-%012x",
+	value := fmt.Sprintf("%s-%s-%s-%s-%s",
 		i.date, i.time, i.phase1, i.phase2, i.phase3)
 
 	if i.uppercase {

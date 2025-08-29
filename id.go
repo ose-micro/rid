@@ -10,9 +10,9 @@ import (
 type Id struct {
 	date      string
 	time      string
-	phase1    []byte
-	phase2    []byte
-	phase3    []byte
+	phase1    string
+	phase2    string
+	phase3    string
 	uppercase bool
 }
 
@@ -49,9 +49,9 @@ func New(prefix string, uppercase bool) *Id {
 	b := make([]byte, 10)
 	_, _ = rand.Read(b)
 
-	phase1 := b[0:2] // 4 hex
-	phase2 := b[2:4] // 4 hex
-	phase3 := b[4:]  // 12 hex
+	phase1 := string(b[0:2]) // 4 hex
+	phase2 := string(b[2:4]) // 4 hex
+	phase3 := string(b[4:])  // 12 hex
 
 	return &Id{
 		date:      block1,
@@ -77,9 +77,9 @@ func Existing(id string) *Id {
 	return &Id{
 		date:      datePart,
 		time:      timePart,
-		phase1:    []byte(phase1),
-		phase2:    []byte(phase2),
-		phase3:    []byte(phase3),
+		phase1:    phase1,
+		phase2:    phase2,
+		phase3:    phase3,
 		uppercase: uppercase,
 	}
 }

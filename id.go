@@ -49,9 +49,9 @@ func New(prefix string, uppercase bool) *Id {
 	b := make([]byte, 10)
 	_, _ = rand.Read(b)
 
-	phase1 := string(b[0:2]) // 4 hex
-	phase2 := string(b[2:4]) // 4 hex
-	phase3 := string(b[4:])  // 12 hex
+	phase1 := fmt.Sprintf("%04x", b[0:2]) // 4 hex
+	phase2 := fmt.Sprintf("%04x", b[2:4]) // 4 hex
+	phase3 := fmt.Sprintf("%012x", b[4:]) // 12 hex
 
 	return &Id{
 		date:      block1,
